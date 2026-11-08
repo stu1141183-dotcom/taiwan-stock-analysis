@@ -316,11 +316,8 @@ def create_chart(df, symbol):
     return fig
 
 
-code = st.text_input(
-    "請輸入股票代號",
-    placeholder="例如：2330、0050、2317",
-    key="stock_search_main"
-)
+if "analysis_started" not in st.session_state:
+    st.session_state.analysis_started = False
 
 start = st.button(
     "🔍 開始分析",
@@ -329,6 +326,9 @@ start = st.button(
 )
 
 if start:
+    st.session_state.analysis_started = True
+
+if st.session_state.analysis_started:
     if not code.strip():
         st.warning("請先輸入股票代號。")
     else:
